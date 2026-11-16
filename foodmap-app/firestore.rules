@@ -1,0 +1,9 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 只有拿到邀請連結（知道旅行代碼）的人才能讀寫
+    match /trips/{trip}/{rest=**} {
+      allow read, write: if request.auth != null && trip.size() >= 16;
+    }
+  }
+}

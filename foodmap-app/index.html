@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>我們的日本美食地圖</title>
+<meta name="theme-color" content="#1d2640">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="美食地圖">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1><span class="stamp">食</span>我們的日本美食地圖</h1>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="stats">
+    <span class="chip want" id="stWant">♥ 想吃 0</span>
+    <span class="chip done" id="stDone">✓ 吃過 0</span>
+    <button class="chip sync" id="stSync" title="同步設定">⚙ 只存在這支手機</button>
+  </div>
+</header>
+<main>
+  <div class="mapwrap">
+    <div id="map"></div>
+    <div class="mapctl">
+      <button id="locBtn" aria-label="我的位置" title="我的位置">◎</button>
+      <button id="fitBtn" aria-label="顯示全部店家" title="顯示全部店家">⤢</button>
+    </div>
+    <div class="pickbar" id="pickbar"><span id="pickText">點地圖上店家的位置</span><button id="pickHere">用我的位置</button><button id="pickCancel">取消</button></div>
+  </div>
+  <aside id="side">
+    <div class="tools">
+      <div class="row">
+        <input class="search" id="q" type="search" placeholder="搜尋店名、地區、料理…" aria-label="搜尋">
+        <button class="btn" id="addBtn">＋ 新增</button>
+      </div>
+      <div class="cats" id="cats"></div>
+      <div class="seg" id="seg"></div>
+    </div>
+    <div class="list" id="list"></div>
+    <div class="detail" id="detail"></div>
+  </aside>
+</main>
+
+<dialog id="addDlg">
+  <form id="addForm">
+    <h3>新增店家</h3>
+    <span class="small" id="addWhere"></span>
+    <label class="lab" for="fName">店名</label>
+    <input class="field" id="fName" required placeholder="例如：一蘭 天神西通店">
+    <label class="lab" for="fJp">日文店名（給 Google 地圖搜尋用，可空白）</label>
+    <input class="field" id="fJp" placeholder="例如：一蘭 天神西通り店">
+    <div class="two">
+      <div><label class="lab" for="fCat">類型</label><select class="field" id="fCat"></select></div>
+      <div><label class="lab" for="fArea">地區</label><input class="field" id="fArea" placeholder="例如：天神"></div>
+    </div>
+    <label class="lab" for="fLink">Google 地圖連結（可空白）</label>
+    <input class="field" id="fLink" type="url" placeholder="https://maps.app.goo.gl/…">
+    <label class="lab" for="fDesc">為什麼想去</label>
+    <textarea id="fDesc" placeholder="IG 看到的、朋友推薦的…"></textarea>
+    <div class="dlgacts">
+      <button type="button" class="btn ghost" id="addCancel">取消</button>
+      <button type="submit" class="btn">加到地圖</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="syncDlg">
+  <form id="syncForm">
+    <h3>兩人同步</h3>
+    <div id="syncBody"></div>
+    <div class="dlgacts"><button type="button" class="btn ghost" id="syncClose">關閉</button></div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
